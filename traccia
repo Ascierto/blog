@@ -1,0 +1,22 @@
+SECONDO PROGETTO: BLOG
+1 VISTA: Visualizzare tutti gli articoli (frontend)
+  - Navigare su un signolo articolo
+2 VISTA: Visualizzare il singolo articolo (frontend)
+  - Visualizzare l'articolo
+  - Commentare
+3 VISTA: Login
+4 VISTA: Registrazione
+5 VISTA: Visualizzare tutti gli articoli (backend)
+  - Visualizzare un singolo articolo (ci porta nel frontend)
+  - Modificare un articolo esistente
+  - Cancellare un articolo esistente
+  - Conteggio dei commenti
+6 VISTA: Creazione/Modifica di un articolo (backend)
+  - Pubblicare un articolo
+  - Salvarlo in bozze
+  - Eliminarlo
+  - Scrivere articolo
+    - Titolo
+    - Contenuto
+    - Immagine
+    - Autore
