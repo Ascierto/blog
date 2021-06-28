@@ -19,7 +19,7 @@ class Articolo {
         
         echo 'Connesso al db';
 
-        $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine) VALUES (?, ?, ?)');
+        $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at) VALUES (?, ?, ?,NOW())');
             $query->bind_param('sss', $form_data['titolo'], $form_data['contenuto'],$form_data['immagine']);
             $query->execute();
 
@@ -31,5 +31,29 @@ class Articolo {
 
         header('Location: http://localhost:8888/blog/crea-articolo.php?stato=ok');
         exit;
+    }
+
+    public static function selectData($args=null){
+
+        $mysqli = new mysqli('127.0.0.1', 'root', 'rootroot', 'blog_php');
+
+        if ($mysqli->connect_errno) {
+            echo 'Connessione al database fallita: ' . $mysqli->connect_error;
+            exit();
+        }
+
+        $query= $mysqli->query("SELECT * FROM articoli");
+
+        $results=[];
+
+        if($query->num_rows > 0){
+            
+            while ($row = $query->fetch_assoc()) {
+                $results[] = $row;
+            }      
+        }
+
+        return $results;
+
     }
 }
