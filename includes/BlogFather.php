@@ -1,8 +1,12 @@
 <?php
-
 namespace FirstMile;
 
+
+include __DIR__ .'/util.php';
+
 abstract class BlogFather{
+
+    use \FirstMile\Utils\InputSanitize;
 
     abstract protected static function sanitize($fields);
     abstract public static function insertData($form_data);

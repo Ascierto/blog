@@ -7,16 +7,42 @@ class Articolo extends BlogFather{
 
     protected static function sanitize($fields)
     {
+        //Questa funzione è da rivedere non funziona effettivamente;
         
+        $fields['titolo'] = self::cleanInput($fields['titolo']);
+
+        $fields['contenuto'] = self::cleanInput($fields['contenuto']);
+
+        return $fields;
+
     }
 
     public static function insertData($form_data){
 
-        $form_data=array(
+        $fields=array(
             'titolo'=>$form_data['titolo'],
             'contenuto'=>$form_data['contenuto'],
             'immagine'=>$form_data['immagine']
         );
+
+        // $target = "blog/images/". basename($_FILES['immagine']['name']);
+
+        
+
+        $fields = self::sanitize($fields);
+
+        if ($fields[0] instanceof \Exception) {
+            $error_messages = '';
+            foreach ($fields as $key => $error) {
+                $error_messages .= $error->getMessage();
+                if ($key < count($fields) - 1) {
+                    $error_messages .= '|';
+                }
+            }
+            header('Location: http://localhost:8888/blog/crea-articolo.php?stato=errore&messages='
+             . $error_messages);
+            exit;
+        }
 
         $mysqli = new mysqli('127.0.0.1', 'root', 'rootroot', 'blog_php');
 
@@ -37,8 +63,17 @@ class Articolo extends BlogFather{
                 exit;
             }
 
+        // if(move_uploaded_file($_FILES['immagine']['tmp_name'],$target)){
+        //     echo "immagine caricata nella cartella";
+        // }else{
+        //     echo "Ops c'è stato un errore";
+        // }
+
         header('Location: http://localhost:8888/blog/crea-articolo.php?stato=ok');
         exit;
+        
+        
+
     }
 
     public static function selectData($args=null){
