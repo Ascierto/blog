@@ -1,6 +1,9 @@
 <?php
 
+    include __DIR__ .'/BlogFather.php';
     include __DIR__ . '/Articolo.php';
 
-    $articolo = Articolo::insertData($_POST);
+   
+
+    $articolo = \FirstMile\Articolo::insertData($_POST);
 

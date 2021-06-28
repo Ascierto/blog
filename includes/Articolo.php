@@ -1,6 +1,14 @@
 <?php
 
-class Articolo {
+namespace FirstMile;
+use mysqli;
+
+class Articolo extends BlogFather{
+
+    protected static function sanitize($fields)
+    {
+        
+    }
 
     public static function insertData($form_data){
 
@@ -42,7 +50,18 @@ class Articolo {
             exit();
         }
 
-        $query= $mysqli->query("SELECT * FROM articoli");
+
+
+        if(isset($args['id'])){
+            $args['id'] = intval($args['id']);
+            $query = $mysqli->query("SELECT * FROM articoli WHERE id = " . $args['id']);
+        }else{
+            
+            $query= $mysqli->query("SELECT * FROM articoli");
+        }
+        
+
+        
 
         $results=[];
 

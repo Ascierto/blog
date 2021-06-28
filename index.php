@@ -1,10 +1,12 @@
 <?php
     include __DIR__ .'/includes/navbar.php';
 
+    include __DIR__ .'/includes/BlogFather.php';
+
     include __DIR__ .'/includes/Articolo.php';
     
 
-    $articoli = Articolo::selectData();
+    $articoli = \FirstMile\Articolo::selectData();
 ?>
 
 <main class="container">
@@ -22,6 +24,9 @@
           <h5 class="card-title"> <?php echo $articolo['titolo'] ?></h5>
           <p class="card-text">  <?php echo substr($articolo['contenuto'],0,100) . "..." ?>  </p>
           <p class="card-text"><small class="text-muted"> <?php echo $articolo['created_at'] ?> </small></p>
+        </div>
+        <div>
+          <a href="dettaglio-articolo.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
         </div>
       </div>
     </div>
