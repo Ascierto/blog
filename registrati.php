@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-6">
-            <form method="POST" action="registra-utente.php">
+            <form method="POST" action="includes/registra-utente.php">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome</label>
                     <input name="nome" type="text" class="form-control" id="nome">

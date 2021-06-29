@@ -61,6 +61,42 @@ class Utenti{
         header('Location: http://localhost:8888/blog/registrati.php?stato=ok');
         exit;
     }
+    public static function loginUser($form_data)
+    {
+
+        $fields = array(
+        'email'  => $_POST['email'],
+        'password'  => $_POST['password']
+        );
+
+        $fields = self::sanitize($fields);
+
+        $mysqli = new mysqli('127.0.0.1', 'root', 'rootroot', 'blog_php');
+
+        if ($mysqli->connect_errno) {
+            echo 'Connessione al database fallita: ' . $mysqli->connect_error;
+            exit();
+        }
+
+        $query_user = $mysqli->query("SELECT * FROM utenti WHERE email = '" . $fields['email'] . "'");
+
+        if ($query_user->num_rows === 0) {
+            header('Location: http://localhost:8888/blog/login.php?stato=errore&messages=Utente non presente');
+            exit;
+        }
+
+        $user = $query_user->fetch_assoc();
+
+        if ($user['password'] !== md5($fields['password'])) {
+            header('Location: http://localhost:8888/blog/login.php?stato=errore&messages=Password errata');
+            exit;
+        }
+
+        return array(
+        'id'  => $user['id'],
+        'email' => $user['email']
+        );
+    }
     
     public static function isEmailAddressValid($email_address)
     {

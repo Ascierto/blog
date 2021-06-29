@@ -1,12 +1,19 @@
 <?php
+   session_start();
+
     include __DIR__ .'/includes/navbar.php';
 
     include __DIR__ .'/includes/BlogFather.php';
 
     include __DIR__ .'/includes/Articolo.php';
 
+    //riesco a loggarmi ed iniziare una sessione e riesco a prendere l'email quando
 
-    $articoli = \FirstMile\Articolo::selectData();
+    var_dump($_SESSION);
+
+
+    $articoli = \FirstMile\Articolo::selectData(array( 'userId' => $_SESSION['userId'] ));
+
 
 ?>
 

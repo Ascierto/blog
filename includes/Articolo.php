@@ -114,14 +114,18 @@ class Articolo extends BlogFather{
         }
 
 
-
-        if(isset($args['id'])){
+        if (isset($args['id'])) {
             $args['id'] = intval($args['id']);
-            $query = $mysqli->query("SELECT * FROM articoli WHERE id = " . $args['id']);
-        }else{
-            
-            $query= $mysqli->query("SELECT * FROM articoli");
+            $query      = $mysqli->prepare('SELECT * FROM utenti JOIN articoli ON utenti.id=articoli.id_utente 
+            WHERE utenti.id = ? AND articoli.id_utente = ?');
+            $query->bind_param('ii', $args['userId'], $args['id']);
+            $query->execute();
+            $query = $query->get_result();
+        } else {
+            $query = $mysqli->query('SELECT * FROM articoli WHERE id_utente = ' . $args['userId']);
         }
+
+
         
 
         
