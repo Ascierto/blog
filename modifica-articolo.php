@@ -13,7 +13,6 @@
   
       $articolo = \FirstMile\Articolo::selectData($args);
 
-      var_dump($articolo);
 ?>
 
         <main class="container">

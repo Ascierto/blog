@@ -159,4 +159,46 @@ class Articolo extends BlogFather{
         
         }
     }
+
+    public static function deleteData($id = null){
+
+        $mysqli = new mysqli("127.0.0.1", "root", "rootroot", "blog_php");
+        
+        if ($mysqli->connect_errno) {
+            echo "Connessione al database fallita: " . $mysqli->connect_error;
+            exit();
+        }
+
+        if ( $id ) {
+
+            $id = intval($id);
+    
+            $query = $mysqli->prepare('DELETE FROM articoli WHERE id = ?');
+            $query->bind_param('i', $id);
+            $query->execute();
+    
+            if ($query->affected_rows > 0) {
+                header('Location: http://localhost:8888/blog/?statocanc=ok');
+                exit;
+            } else {
+                header('Location: http://localhost:8888/blog/?statocanc=ko');
+                exit;
+            }
+        }
+
+        //   else{
+
+        //     $query = $mysqli->query('DELETE FROM lista');
+            
+        //     if ($query->affected_rows > 0) {
+        //         header('Location: http://localhost:8888/todolist/?statocanc=ok');
+        //         exit;
+        //     } else {
+        //         header('Location: http://localhost:8888/todolist/?statocanc=ko');
+        //         exit;
+        //     }
+        // }
+    }
+
+    
 }

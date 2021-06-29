@@ -12,5 +12,6 @@ abstract class BlogFather{
     abstract public static function insertData($form_data);
     abstract public static function selectData($args=null);
     abstract public static function updateData($form_data,$id);
+    abstract public static function deleteData($id=null);
 
 }
