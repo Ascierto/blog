@@ -27,7 +27,7 @@
                         <a class="nav-link" href="crea-articolo.php">Crea</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Registrati</a>
+                        <a class="nav-link" href="registrati.php">Registrati</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#">Login</a>

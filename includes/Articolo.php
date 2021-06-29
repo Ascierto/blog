@@ -19,13 +19,15 @@ class Articolo extends BlogFather{
 
     public static function insertData($form_data){
 
+        
+
         $fields=array(
             'titolo'=>$form_data['titolo'],
             'contenuto'=>$form_data['contenuto'],
             'immagine'=>$form_data['immagine']
         );
 
-        // $target = "blog/images/". basename($_FILES['immagine']['name']);
+    
 
         
 
@@ -54,7 +56,7 @@ class Articolo extends BlogFather{
         echo 'Connesso al db';
 
         $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at) VALUES (?, ?, ?,NOW())');
-            $query->bind_param('sss', $form_data['titolo'], $form_data['contenuto'],$form_data['immagine']);
+            $query->bind_param('sss', $form_data['titolo'], $form_data['contenuto'],$nome_file);
             $query->execute();
 
             if ($query->affected_rows === 0) {
@@ -63,16 +65,42 @@ class Articolo extends BlogFather{
                 exit;
             }
 
-        // if(move_uploaded_file($_FILES['immagine']['tmp_name'],$target)){
-        //     echo "immagine caricata nella cartella";
-        // }else{
-        //     echo "Ops c'è stato un errore";
-        // }
-
         header('Location: http://localhost:8888/blog/crea-articolo.php?stato=ok');
         exit;
         
+        if(isset($_FILES['immagine']) && $_FILES['immagine']['error'] == 0){
+
+            $estensioni_permesse=array(
+                'jpg'=>'image/jpg',
+                'jpeg'=>'image/jpeg',
+                'png'=>'image/png',
+            );
+            $nome_file=$_FILES['immagine']['name'];
+            $tipo_file=$_FILES['immagine']['type'];
+            $size_file=$_FILES['immagine']['size'];
         
+            //verifico estensione file
+        
+            $estensione = pathinfo($nome_file,PATHINFO_EXTENSION);
+            if(! array_key_exists($estensione,$estensioni_permesse)){
+                echo"errore!Seleziona formato valido";
+            }
+        
+            //fare controllo dimensioni!
+        
+            if(in_array($tipo_file,$estensioni_permesse)){
+                if(file_exists('images/'.$nome_file)){
+                    echo $nome_file . 'esiste già';
+                }else{
+                    move_uploaded_file($_FILES['immagine']['tmp_name'], '/images/'.$nome_file);
+                }
+            }else{
+                echo 'Errore durante il caricamento';
+            }
+        }else{
+        
+            echo "Errore" . $_FILES['immagine']['error'];
+        }
 
     }
 

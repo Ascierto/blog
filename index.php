@@ -4,9 +4,10 @@
     include __DIR__ .'/includes/BlogFather.php';
 
     include __DIR__ .'/includes/Articolo.php';
-    
+
 
     $articoli = \FirstMile\Articolo::selectData();
+
 ?>
 
 <main class="container">
