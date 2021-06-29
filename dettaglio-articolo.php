@@ -19,6 +19,10 @@ if(isset($_GET['id'])){
 <section class="container">
     <div class="row">
         <div class="col-12">
+            <a href="modifica-articolo.php?id=<?php echo $articolo[0]['id'];?>" class="btn btn-outline-warning">Modifica</a>
+            <a href="" class="btn btn-outline-danger">Elimina</a>
+        </div>
+        <div class="col-12">
             <h1> <?php echo $articolo[0]['titolo'] ?></h1>
             <p> # <?php echo $articolo[0]['id'] ?></p>
         </div>

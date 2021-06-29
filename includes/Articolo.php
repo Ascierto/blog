@@ -110,4 +110,53 @@ class Articolo extends BlogFather{
         return $results;
 
     }
+
+    public static function updateData($form_data, $id)
+    {
+        $fields=array(
+            'titolo'=>$form_data['titolo'],
+            'contenuto'=>$form_data['contenuto'],
+            'immagine'=>$form_data['immagine']
+        );
+
+        $fields = self::sanitize($fields);
+
+        if($fields){
+
+            $mysqli = new mysqli('127.0.0.1', 'root', 'rootroot', 'blog_php');
+    
+            if ($mysqli->connect_errno) {
+                echo 'Connessione al database fallita: ' . $mysqli->connect_error;
+                exit();
+            }
+
+            $id= intval($id);
+
+            //Gestisci bene gli errori
+
+
+            try {
+                $query = $mysqli->prepare('UPDATE articoli SET titolo = ?, contenuto = ?, created_at = NOW() WHERE id = ?');
+                if (is_bool($query)) {
+                    throw new \Exception('Query non valida. $mysqli->prepare ha restituito false.');
+                }
+                $query->bind_param('ssi', $fields['titolo'], $fields['contenuto'], $id);
+                $query->execute();
+            } catch (\Exception $e) {
+                error_log("Errore PHP in linea {$e->getLine()}: " . $e->getMessage() . "\n", 3, 'my-errors.log');
+            }
+
+            if ($query->affected_rows === 0) {
+                error_log("Errore MySQL: " . $query->error_list[0]['error']);
+                header('Location: http://localhost:8888/blog/modifica-articolo.php?stato=ko&id='. $id);
+                exit;
+            }
+            
+            header('Location: http://localhost:8888/blog/index.php?stato=ok');
+            exit;
+            
+            $mysqli->close();
+        
+        }
+    }
 }
