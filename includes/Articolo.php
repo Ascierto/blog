@@ -17,57 +17,8 @@ class Articolo extends BlogFather{
 
     }
 
-    public static function insertData($form_data){
+    public static function insertData($form_data, $loggedInUserId){
 
-        
-
-        $fields=array(
-            'titolo'=>$form_data['titolo'],
-            'contenuto'=>$form_data['contenuto'],
-            'immagine'=>$form_data['immagine']
-        );
-
-    
-
-        
-
-        $fields = self::sanitize($fields);
-
-        if ($fields[0] instanceof \Exception) {
-            $error_messages = '';
-            foreach ($fields as $key => $error) {
-                $error_messages .= $error->getMessage();
-                if ($key < count($fields) - 1) {
-                    $error_messages .= '|';
-                }
-            }
-            header('Location: http://localhost:8888/blog/crea-articolo.php?stato=errore&messages='
-             . $error_messages);
-            exit;
-        }
-
-        $mysqli = new mysqli('127.0.0.1', 'root', 'rootroot', 'blog_php');
-
-        if ($mysqli->connect_errno) {
-            echo 'Connessione al database fallita: ' . $mysqli->connect_error;
-            exit();
-        }
-        
-        echo 'Connesso al db';
-
-        $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at) VALUES (?, ?, ?,NOW())');
-            $query->bind_param('sss', $form_data['titolo'], $form_data['contenuto'],$nome_file);
-            $query->execute();
-
-            if ($query->affected_rows === 0) {
-                error_log('Errore MySQL: ' . $query->error_list[0]['error']);
-                header('Location: http://localhost:8888/blog/crea-articolo.php?stato=ko');
-                exit;
-            }
-
-        header('Location: http://localhost:8888/blog/crea-articolo.php?stato=ok');
-        exit;
-        
         if(isset($_FILES['immagine']) && $_FILES['immagine']['error'] == 0){
 
             $estensioni_permesse=array(
@@ -101,6 +52,60 @@ class Articolo extends BlogFather{
         
             echo "Errore" . $_FILES['immagine']['error'];
         }
+        
+
+        $fields=array(
+            'titolo'=>$form_data['titolo'],
+            'contenuto'=>$form_data['contenuto'],
+            'immagine'=>$form_data['immagine']
+        );
+
+    
+
+        
+
+        $fields = self::sanitize($fields);
+
+        if ($fields[0] instanceof \Exception) {
+            $error_messages = '';
+            foreach ($fields as $key => $error) {
+                $error_messages .= $error->getMessage();
+                if ($key < count($fields) - 1) {
+                    $error_messages .= '|';
+                }
+            }
+            header('Location: http://localhost:8888/blog/crea-articolo.php?stato=errore&messages='
+             . $error_messages);
+            exit;
+        }
+
+        if($fields){
+
+            $mysqli = new mysqli('127.0.0.1', 'root', 'rootroot', 'blog_php');
+    
+            if ($mysqli->connect_errno) {
+                echo 'Connessione al database fallita: ' . $mysqli->connect_error;
+                exit();
+            }
+            
+            echo 'Connesso al db';
+    
+            $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at,id_utente) VALUES (?, ?, ?,NOW(),?)');
+                $query->bind_param('sssi', $form_data['titolo'], $form_data['contenuto'],$nome_file,$loggedInUserId);
+                $query->execute();
+    
+                if ($query->affected_rows === 0) {
+                    error_log('Errore MySQL: ' . $query->error_list[0]['error']);
+                    header('Location: http://localhost:8888/blog/crea-articolo.php?stato=ko');
+                    exit;
+                }
+    
+            header('Location: http://localhost:8888/blog/crea-articolo.php?stato=ok');
+            exit;
+        }
+
+        
+    
 
     }
 

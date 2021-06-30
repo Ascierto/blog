@@ -1,5 +1,8 @@
 <?php
+session_start();
     include __DIR__ .'/includes/navbar.php';
+
+    var_dump($_SESSION);
 
 
 ?>
