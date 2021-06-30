@@ -18,7 +18,7 @@ class Articolo extends BlogFather{
 
     }
 
-    public static function insertData($file=null,$form_data, $loggedInUserId){
+    public static function insertData($form_data, $loggedInUserId,$file=null){
 
         $file=array(
             'nome'=>$_FILES['immagine']['name'],

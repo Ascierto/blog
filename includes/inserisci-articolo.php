@@ -11,5 +11,5 @@ session_start();
     // exit();
    
 
-        $articolo = \FirstMile\Articolo::insertData($_FILES,$_POST,$_SESSION['userId']);
+        $articolo = \FirstMile\Articolo::insertData($_POST,$_SESSION['userId'],$_FILES);
     
