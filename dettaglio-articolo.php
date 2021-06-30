@@ -23,7 +23,7 @@ if (count($articolo) > 0) :
 
 <section class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 text-end">
             <a href="modifica-articolo.php?id=<?php echo $_GET['id'];?>" class="btn btn-outline-warning">Modifica</a>
             <a href="cancella-articolo.php?id=<?php echo $_GET['id'];?>" class="btn btn-outline-danger">Elimina</a>
         </div>

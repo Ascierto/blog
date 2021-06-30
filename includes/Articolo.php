@@ -202,7 +202,7 @@ class Articolo extends BlogFather{
     }
     
 
-    public static function deleteData($id = null){
+    public static function deleteData($id = null, $userId = null){
 
         $mysqli = new mysqli("127.0.0.1", "root", "rootroot", "blog_php");
         
@@ -226,7 +226,20 @@ class Articolo extends BlogFather{
                 header('Location: http://localhost:8888/blog/?statocanc=ko');
                 exit;
             }
-        }
+        }else {
+            // $query = $mysqli->query('DELETE FROM contatti_meta');
+            $query = $mysqli->prepare('DELETE FROM articoli WHERE id_utente = ?');
+            $query->bind_param('i', $userId);
+            $query->execute();
+    
+            if ($query->affected_rows > 0) {
+                header('Location: http://localhost:8888/blog/cancella-articolo.php?statocanc=ok');
+                exit;
+            } else {
+                header('Location: http://localhost:8888/blog/cancella-articolo.php?statocanc=ko');
+                exit;
+            }
+          }
 
         //   else{
 
