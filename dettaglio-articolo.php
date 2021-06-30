@@ -16,8 +16,6 @@ $args     = array(
 
     $articolo = \FirstMile\Articolo::selectData($args);
 
-var_dump($articolo);
-
 if (count($articolo) > 0) :
 
 ?>

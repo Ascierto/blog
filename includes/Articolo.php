@@ -152,7 +152,7 @@ class Articolo extends BlogFather{
 
     public static function updateData($form_data, $id)
     {
-        $fields=array(
+        $fields = array(
             'titolo'=>$form_data['titolo'],
             'contenuto'=>$form_data['contenuto'],
             'immagine'=>$form_data['immagine']
@@ -160,8 +160,7 @@ class Articolo extends BlogFather{
 
         $fields = self::sanitize($fields);
 
-        if($fields){
-
+        if ($fields) {
             $mysqli = new mysqli('127.0.0.1', 'root', 'rootroot', 'blog_php');
     
             if ($mysqli->connect_errno) {
@@ -169,10 +168,8 @@ class Articolo extends BlogFather{
                 exit();
             }
 
-            $id= intval($id);
-
-            //Gestisci bene gli errori
-
+            $id          = intval($id);
+            $is_in_error = false;
 
             try {
                 $query = $mysqli->prepare('UPDATE articoli SET titolo = ?, contenuto = ?, created_at = NOW() WHERE id = ?');
@@ -185,19 +182,25 @@ class Articolo extends BlogFather{
                 error_log("Errore PHP in linea {$e->getLine()}: " . $e->getMessage() . "\n", 3, 'my-errors.log');
             }
 
-            if ($query->affected_rows === 0) {
-                error_log("Errore MySQL: " . $query->error_list[0]['error']);
-                header('Location: http://localhost:8888/blog/modifica-articolo.php?stato=ko&id='. $id);
-                exit;
+            if (! is_bool($query)) {
+                if (count($query->error_list) > 0) {
+                    $is_in_error = true;
+                    foreach ($query->error_list as $error) {
+                        error_log("Errore MySQL n. {$error['errno']}: {$error['error']} \n", 3, 'my-errors.log');
+                    }
+                    header('Location: http://localhost:8888/blog/modifica-articolo.php?id=' . $id . '&stato=ko');
+                    exit;
+                }
             }
-            
-            header('Location: http://localhost:8888/blog/index.php?stato=ok');
+
+            $stato = $is_in_error ? 'ko' : 'ok';
+            header('Location: http://localhost:8888/blog/dettaglio-articolo.php?id=' . $id . '&stato=' . $stato);
             exit;
-            
-            $mysqli->close();
-        
         }
+
+        
     }
+    
 
     public static function deleteData($id = null){
 
