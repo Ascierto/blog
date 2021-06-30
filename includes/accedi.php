@@ -13,6 +13,7 @@ if (isset($_GET['logout'])) {
 
 $loggedInUser = \FirstMile\Utenti::loginUser($_POST);
 $_SESSION['email'] = $loggedInUser['email'];
+$_SESSION['nome'] = $loggedInUser['nome'];
 $_SESSION['userId'] = $loggedInUser['id'];
 header('Location: http://localhost:8888/blog');
 exit;

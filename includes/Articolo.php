@@ -19,6 +19,8 @@ class Articolo extends BlogFather{
 
     public static function insertData($form_data, $loggedInUserId){
 
+        // $file=$_FILES;
+
         if(isset($_FILES['immagine']) && $_FILES['immagine']['error'] == 0){
 
             $estensioni_permesse=array(
@@ -43,7 +45,7 @@ class Articolo extends BlogFather{
                 if(file_exists('images/'.$nome_file)){
                     echo $nome_file . 'esiste già';
                 }else{
-                    move_uploaded_file($_FILES['immagine']['tmp_name'], '/images/'.$nome_file);
+                    move_uploaded_file($_FILES['immagine']['tmp_name'], './images/'.$nome_file);
                 }
             }else{
                 echo 'Errore durante il caricamento';
@@ -57,7 +59,6 @@ class Articolo extends BlogFather{
         $fields=array(
             'titolo'=>$form_data['titolo'],
             'contenuto'=>$form_data['contenuto'],
-            'immagine'=>$form_data['immagine']
         );
 
     
@@ -119,15 +120,16 @@ class Articolo extends BlogFather{
         }
 
 
+
         if (isset($args['id'])) {
             $args['id'] = intval($args['id']);
-            $query      = $mysqli->prepare('SELECT * FROM utenti JOIN articoli ON utenti.id=articoli.id_utente 
-            WHERE utenti.id = ? AND articoli.id_utente = ?');
-            $query->bind_param('ii', $args['userId'], $args['id']);
+            $query      = $mysqli->prepare('SELECT * FROM articoli JOIN utenti ON articoli.id_utente = utenti.id
+            WHERE articoli.id = ? AND utenti.id = ?');
+            $query->bind_param('ii', $args['id'],$args['userId']);
             $query->execute();
             $query = $query->get_result();
         } else {
-            $query = $mysqli->query('SELECT * FROM articoli WHERE id_utente = ' . $args['userId']);
+            $query = $mysqli->query('SELECT * FROM blog_php.articoli WHERE articoli.id_utente =' . $args['userId']);
         }
 
 

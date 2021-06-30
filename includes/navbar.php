@@ -1,3 +1,6 @@
+<?php
+//  session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,21 +23,27 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <?php if ( isset( $_SESSION['email'] ) ) : ?>
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#">Ciao <?php echo $_SESSION['nome']; ?></a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="crea-articolo.php">Crea</a>
+                            <a class="nav-link" href="crea-articolo.php">Crea</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Profilo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/blog/includes/accedi.php?logout=1">Logout</a>
+                        </li>
+                    <?php else: ?>
                         <li class="nav-item">
                         <a class="nav-link" href="registrati.php">Registrati</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Profilo</a>
-                        </li>
+                    <?php endif; ?>
                     </ul>
                 </div>
             </div>

@@ -24,7 +24,7 @@ if(isset($_FILES['upload']) && $_FILES['upload']['error'] == 0){
         if(file_exists('images/'.$nome_file)){
             echo $nome_file . 'esiste già';
         }else{
-            move_uploaded_file($_FILES['upload']['tmp_name'], 'images/'.$nome_file);
+            move_uploaded_file($_FILES['upload']['tmp_name'], './images/'.$nome_file);
         }
     }else{
         echo 'Errore durante il caricamento';

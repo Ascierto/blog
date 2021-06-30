@@ -11,8 +11,11 @@
 
     var_dump($_SESSION);
 
+    
+
 
     $articoli = \FirstMile\Articolo::selectData(array( 'userId' => $_SESSION['userId'] ));
+
 
 
 ?>

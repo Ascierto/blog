@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include __DIR__ .'/includes/navbar.php';
 
@@ -6,12 +7,18 @@ include __DIR__ .'/includes/BlogFather.php';
 
 include __DIR__ .'/includes/Articolo.php';
 
-$args=array(
-    'id'=>$_GET['id']
+$args     = array(
+    'id' => $_GET['id'],
+    'userId' => $_SESSION['userId']
 );
-if(isset($_GET['id'])){
+ 
+
+
     $articolo = \FirstMile\Articolo::selectData($args);
-}
+
+var_dump($articolo);
+
+if (count($articolo) > 0) :
 
 ?>
 
@@ -19,12 +26,12 @@ if(isset($_GET['id'])){
 <section class="container">
     <div class="row">
         <div class="col-12">
-            <a href="modifica-articolo.php?id=<?php echo $articolo[0]['id'];?>" class="btn btn-outline-warning">Modifica</a>
-            <a href="cancella-articolo.php?id=<?php echo $articolo[0]['id'];?>" class="btn btn-outline-danger">Elimina</a>
+            <a href="modifica-articolo.php?id=<?php echo $_GET['id'];?>" class="btn btn-outline-warning">Modifica</a>
+            <a href="cancella-articolo.php?id=<?php echo $_GET['id'];?>" class="btn btn-outline-danger">Elimina</a>
         </div>
         <div class="col-12">
             <h1> <?php echo $articolo[0]['titolo'] ?></h1>
-            <p> # <?php echo $articolo[0]['id'] ?></p>
+            <p> # <?php echo $_GET['id'] ?></p>
         </div>
         <div class="col-12 col-md-6">
             <img src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8YmxvZ3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" class="card-img-top img-fluid" alt="...">
@@ -36,3 +43,10 @@ if(isset($_GET['id'])){
     </div>
 
 </section>
+
+<?php else : ?>
+
+<h1>Spiacenti nessun articolo trovato</h1>
+
+<?php endif; ?>
+
