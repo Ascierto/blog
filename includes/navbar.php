@@ -38,6 +38,9 @@
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
+                        <a class="nav-link" href="articoli-tutti.php">Leggi Articoli</a>
+                        </li>
+                        <li class="nav-item">
                         <a class="nav-link" href="registrati.php">Registrati</a>
                         </li>
                         <li class="nav-item">
