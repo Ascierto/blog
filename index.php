@@ -30,7 +30,11 @@
 
     <div class="col-12 col-md-4">
       <div class="card mb-3">
-        <img src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8YmxvZ3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" class="card-img-top img-fluid" alt="...">
+      <?php if($articolo['immagine']): ?>
+        <img src="./images/<?php echo $articolo['immagine'] ?>" class="card-img-top img-fluid" alt="...">
+       <?php else :?>
+        <img src="./images/default-blog.jpg" class="card-img-top img-fluid" alt="...">
+        <?php endif?>
         <div class="card-body">
           <h5 class="card-title"> <?php echo $articolo['titolo'] ?></h5>
           <p class="card-text">  <?php echo substr($articolo['contenuto'],0,100) . "..." ?>  </p>

@@ -32,7 +32,11 @@ if (count($articolo) > 0) :
             <p> # <?php echo $_GET['id'] ?></p>
         </div>
         <div class="col-12 col-md-6">
-            <img src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8YmxvZ3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" class="card-img-top img-fluid" alt="...">
+        <?php if($articolo[0]['immagine']): ?>
+            <img src="./images/<?php echo $articolo[0]['immagine'] ?>" class="card-img-top img-fluid" alt="...">
+        <?php else :?>
+            <img src="./images/default-blog.jpg" class="card-img-top img-fluid" alt="...">
+        <?php endif?>
         </div>
         <div class="col-12 col-md-6">
             <p> <?php echo $articolo[0]['contenuto'] ?></p>
