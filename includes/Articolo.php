@@ -5,6 +5,7 @@ use mysqli;
 
 class Articolo extends BlogFather{
 
+
     protected static function sanitize($fields)
     {
         //Questa funzione è da rivedere non funziona effettivamente;
@@ -17,49 +18,58 @@ class Articolo extends BlogFather{
 
     }
 
-    public static function insertData($form_data, $loggedInUserId){
+    public static function insertData($file=null,$form_data, $loggedInUserId){
 
-        // $file=$_FILES;
+        $file=array(
+            'nome'=>$_FILES['immagine']['name'],
+            'path'=>$_FILES['immagine']['tmp_name'],
+            'type'=>$_FILES['immagine']['type'],
+            'error'=>$_FILES['immagine']['error']
+        );
 
-        if(isset($_FILES['immagine']) && $_FILES['immagine']['error'] == 0){
+ 
 
-            $estensioni_permesse=array(
-                'jpg'=>'image/jpg',
-                'jpeg'=>'image/jpeg',
-                'png'=>'image/png',
-            );
-            $nome_file=$_FILES['immagine']['name'];
-            $tipo_file=$_FILES['immagine']['type'];
-            $size_file=$_FILES['immagine']['size'];
-        
-            //verifico estensione file
-        
-            $estensione = pathinfo($nome_file,PATHINFO_EXTENSION);
-            if(! array_key_exists($estensione,$estensioni_permesse)){
-                echo"errore!Seleziona formato valido";
-            }
-        
-            //fare controllo dimensioni!
-        
-            if(in_array($tipo_file,$estensioni_permesse)){
-                if(file_exists('images/'.$nome_file)){
-                    echo $nome_file . 'esiste già';
+            if($file['error'] == 0){
+               
+                $estensioni_permesse=array(
+                    'jpg'=>'image/jpg',
+                    'jpeg'=>'image/jpeg',
+                    'png'=>'image/png',
+                );
+
+            
+                //verifico estensione file
+            
+                $estensione = pathinfo($file['nome'],PATHINFO_EXTENSION);
+                if(! array_key_exists($estensione,$estensioni_permesse)){
+                    echo"errore!Seleziona formato valido";
+                }
+            
+                //fare controllo dimensioni!
+            
+                if(in_array($file['type'],$estensioni_permesse)){
+                    if(file_exists('images/'.$file['nome'])){
+                        echo $file['nome']. 'esiste già';
+                    }else{
+                        move_uploaded_file($file['path'], '../images/'.$file['nome']);
+                    }
                 }else{
-                    move_uploaded_file($_FILES['immagine']['tmp_name'], './images/'.$nome_file);
+                    echo 'Errore durante il caricamento';
                 }
             }else{
-                echo 'Errore durante il caricamento';
+            
+                echo "Errore" . $file['error'];
             }
-        }else{
-        
-            echo "Errore" . $_FILES['immagine']['error'];
-        }
-        
+
+   
+       
 
         $fields=array(
             'titolo'=>$form_data['titolo'],
             'contenuto'=>$form_data['contenuto'],
+            'immagine'=>$file['nome']
         );
+
 
     
 
@@ -92,7 +102,7 @@ class Articolo extends BlogFather{
             echo 'Connesso al db';
     
             $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at,id_utente) VALUES (?, ?, ?,NOW(),?)');
-                $query->bind_param('sssi', $form_data['titolo'], $form_data['contenuto'],$nome_file,$loggedInUserId);
+                $query->bind_param('sssi', $form_data['titolo'], $form_data['contenuto'],$fields['immagine'],$loggedInUserId);
                 $query->execute();
     
                 if ($query->affected_rows === 0) {
