@@ -9,7 +9,7 @@
 
     //riesco a loggarmi ed iniziare una sessione e riesco a prendere l'email quando
 
-    var_dump($_SESSION);
+  
 
     
 
@@ -42,6 +42,8 @@ if(count($articoli)>0) :
                   <p class="card-text"><small class="text-muted"> <?php echo $articolo['created_at'] ?> </small></p>
 
                   <h5 class="card-title"> Pubblicato? <?php $articolo['pubblicato'] == 0 ? printf('No!'):printf('Si!') ;?> </h5>
+
+                  <p class="card-text"> Autore : <?php echo $articolo['autore'] ?></p>
                 </div>
                 <div>
                   <a href="dettaglio-articolo.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>

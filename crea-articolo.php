@@ -4,7 +4,6 @@ session_start();
 
     include __DIR__ .'/includes/util.php';
 
-    var_dump($_SESSION);
     if (isset($_GET['stato'])) {
         \FirstMile\Utils\showAlert('inserimento', $_GET['stato']);
     }
@@ -34,6 +33,10 @@ session_start();
                                 <option value="1">Pubblica</option>
                                 <option value="0">Salva in bozze</option>
                             </select>    
+                        </div>
+                        <div class="mb-3">
+                            <label for="autore" class="form-label">Scritto da..</label>
+                            <input name="autore" type="text" class="form-control" id="autore">
                         </div>
 
 

@@ -48,6 +48,8 @@ if (isset($_GET['stato'])) {
             <p> <?php echo $articolo[0]['contenuto'] ?></p>
             <p><?php echo $articolo[0]['created_at'] ?></p>
 
+            <p>Autore : <?php echo $articolo[0]['autore'] ?></p>
+
             <h5> Pubblicato? <?php $articolo[0]['pubblicato'] == 0 ? printf('No!'):printf('Si!') ;?> </h5>
         </div>
     </div>

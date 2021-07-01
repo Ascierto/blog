@@ -68,7 +68,8 @@ class Articolo extends BlogFather{
             'titolo'=>$form_data['titolo'],
             'contenuto'=>$form_data['contenuto'],
             'pubblicato'=>$form_data['pubblicato'],
-            'immagine'=>$file['nome']
+            'immagine'=>$file['nome'],
+            'autore'=>$form_data['autore']
         );
 
 
@@ -102,8 +103,8 @@ class Articolo extends BlogFather{
             
             echo 'Connesso al db';
     
-            $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at,pubblicato,id_utente) VALUES (?, ?, ?,NOW(),?,?)');
-                $query->bind_param('sssii', $form_data['titolo'], $form_data['contenuto'],$fields['immagine'],$form_data['pubblicato'],$loggedInUserId);
+            $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at,pubblicato,id_utente,autore) VALUES (?, ?, ?,NOW(),?,?,?)');
+                $query->bind_param('sssiis', $form_data['titolo'], $form_data['contenuto'],$fields['immagine'],$form_data['pubblicato'],$loggedInUserId,$form_data['autore']);
                 $query->execute();
     
                 if ($query->affected_rows === 0) {

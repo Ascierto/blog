@@ -36,7 +36,7 @@
 
           <h5 class="card-title"> Pubblicato? <?php $articolo['pubblicato'] == 0 ? printf('No!'):printf('Si!') ;?> </h5>
 
-
+          <p class="card-text"> Autore : <?php echo $articolo['autore'] ?></p>
         </div>
         <div>
           <a href="dettaglio-index.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
