@@ -1,8 +1,17 @@
 <?php
+
 session_start();
+
+
+if (!isset($_SESSION['email'])) {
+    header('Location: http://localhost:8888/blog/login.php');
+}
+
     include __DIR__ .'/includes/navbar.php';
 
-    include __DIR__ .'/includes/util.php';
+    include __DIR__ .'/includes/BlogFather.php';
+
+    include __DIR__ .'/includes/Articolo.php';
 
     if (isset($_GET['stato'])) {
         \FirstMile\Utils\showAlert('inserimento', $_GET['stato']);

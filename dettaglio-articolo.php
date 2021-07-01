@@ -1,11 +1,16 @@
 <?php
 session_start();
 
-include __DIR__ .'/includes/navbar.php';
 
-include __DIR__ .'/includes/BlogFather.php';
+if (!isset($_SESSION['email'])) {
+    header('Location: http://localhost:8888/blog/login.php');
+}
 
-include __DIR__ .'/includes/Articolo.php';
+    include __DIR__ .'/includes/navbar.php';
+
+    include __DIR__ .'/includes/BlogFather.php';
+
+    include __DIR__ .'/includes/Articolo.php';
 
 $args     = array(
     'id' => $_GET['id'],

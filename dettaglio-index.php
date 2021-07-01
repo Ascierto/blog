@@ -1,4 +1,5 @@
 <?php
+
 include __DIR__ .'/includes/navbar.php';
 
 include __DIR__ .'/includes/BlogFather.php';
