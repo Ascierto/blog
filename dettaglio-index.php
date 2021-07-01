@@ -36,3 +36,55 @@ if(isset($_GET['id'])){
     </div>
 
 </section>
+
+<section class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <form action="includes/inserisci-commento.php?id=<?php echo $articolo[0]['id'] ?>" method="POST">
+                <label for="commento" class="form-label">Aggiungi commento</label>
+                <textarea name="commento" id="commento" cols="10" rows="4" class="form-control"></textarea>
+
+                <input type="submit" value="Inserisci commento">
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<?php 
+    include __DIR__ .'/includes/Commenti.php';
+
+    $id=$_GET['id'];
+
+    $commenti=\FirstMile\Commenti::selectComment($id);
+
+    if(count($commenti)>0)
+?>
+
+        <section class="container my-5">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Tutti i commenti</h3>
+                </div>
+                <?php foreach ($commenti as $commento):?>
+
+                <div class="col-12">
+                    <div class="card">
+                        <p class="p-3"><?php echo $commento['commento']; ?></p>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+  </body>
+</html>
