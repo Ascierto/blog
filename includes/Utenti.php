@@ -58,7 +58,7 @@ class Utenti{
             exit;
         }
         
-        header('Location: http://localhost:8888/blog/registrati.php?stato=ok');
+        header('Location: http://localhost:8888/blog/login.php?stato=ok');
         exit;
     }
     public static function loginUser($form_data)

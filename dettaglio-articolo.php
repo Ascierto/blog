@@ -16,7 +16,13 @@ $args     = array(
 $articolo = \FirstMile\Articolo::selectData($args);
 
 
+
 if (count($articolo) > 0) :
+
+
+if (isset($_GET['stato'])) {
+    \FirstMile\Utils\showAlert('modifica', $_GET['stato']);
+}
 
 ?>
 

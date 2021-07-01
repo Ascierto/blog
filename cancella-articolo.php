@@ -10,3 +10,5 @@ if(isset($_GET['id'])){
 } else {
     \FirstMile\Articolo::deleteData(null, $_SESSION['userId']);
   }
+
+  

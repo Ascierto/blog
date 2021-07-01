@@ -8,7 +8,10 @@
 
     $articoli=\FirstMile\Articolo::showArticoli();
 
-    // var_dump($articoli);
+    if (isset($_GET['statocanc'])) {
+      \FirstMile\Utils\showAlert('cancellazione', $_GET['statocanc']);
+    }
+
 ?>
 
 <main class="container">
@@ -22,9 +25,9 @@
     <div class="col-12 col-md-4">
       <div class="card mb-3">
       <?php if($articolo['immagine']): ?>
-        <img src="./images/<?php echo $articolo['immagine'] ?>" class="card-img-top img-fluid" alt="...">
+        <img src="./images/<?php echo $articolo['immagine'] ?>" class="card-img-top img-fluid" alt="<?php echo $articolo['immagine'] ?>">
        <?php else :?>
-        <img src="./images/default-blog.jpg" class="card-img-top img-fluid" alt="...">
+        <img src="./images/default-blog.jpg" class="card-img-top img-fluid" alt="immagine-blog">
         <?php endif?>
         <div class="card-body">
           <h5 class="card-title"> <?php echo $articolo['titolo'] ?></h5>

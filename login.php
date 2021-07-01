@@ -1,11 +1,17 @@
 <?php
     include __DIR__ .'/includes/navbar.php';
+    include __DIR__ .'/includes/util.php';
 ?>
 
 <div class="container">
     <div class="row">
         <div class="col-12">
             <h1>Accedi</h1>
+    <?php
+    if (isset($_GET['stato'])) {
+        \FirstMile\Utils\showAlert('login', $_GET['stato']);
+    }
+    ?>
         </div>
         <div class="col-12 col-md-6">
             <form method="POST" action="includes/accedi.php">

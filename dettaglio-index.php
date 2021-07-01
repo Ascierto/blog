@@ -61,6 +61,7 @@ if(isset($_GET['id'])){
     $commenti=\FirstMile\Commenti::selectComment($id);
 
     if(count($commenti)>0) :
+
 ?>
 
         <section class="container my-5">

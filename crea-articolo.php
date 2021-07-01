@@ -2,8 +2,12 @@
 session_start();
     include __DIR__ .'/includes/navbar.php';
 
-    var_dump($_SESSION);
+    include __DIR__ .'/includes/util.php';
 
+    var_dump($_SESSION);
+    if (isset($_GET['stato'])) {
+        \FirstMile\Utils\showAlert('inserimento', $_GET['stato']);
+    }
 
 ?>
 
