@@ -24,7 +24,16 @@ session_start();
                             <input name="immagine" type="file" class="form-control" id="img">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="mb-3">
+                            <label class="form-label">Pubblica adesso o salva come bozza?</label>
+                            <select name="pubblicato" class="form-select">
+                                <option value="1">Pubblica</option>
+                                <option value="0">Salva in bozze</option>
+                            </select>    
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Crea</button>
                     </form>                
                 </div>
             </div>

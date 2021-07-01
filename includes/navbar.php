@@ -31,13 +31,10 @@
                             <a class="nav-link" href="crea-articolo.php">Crea</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="profilo.php">Profilo</a>
+                            <a class="nav-link" href="articoli-personali.php">I tuoi Articoli</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/blog/includes/accedi.php?logout=1">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="articoli-personali.php">I tuoi Articoli</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">

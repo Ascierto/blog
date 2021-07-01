@@ -67,6 +67,7 @@ class Articolo extends BlogFather{
         $fields=array(
             'titolo'=>$form_data['titolo'],
             'contenuto'=>$form_data['contenuto'],
+            'pubblicato'=>$form_data['pubblicato'],
             'immagine'=>$file['nome']
         );
 
@@ -101,8 +102,8 @@ class Articolo extends BlogFather{
             
             echo 'Connesso al db';
     
-            $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at,id_utente) VALUES (?, ?, ?,NOW(),?)');
-                $query->bind_param('sssi', $form_data['titolo'], $form_data['contenuto'],$fields['immagine'],$loggedInUserId);
+            $query = $mysqli->prepare('INSERT INTO articoli(titolo, contenuto, immagine,created_at,pubblicato,id_utente) VALUES (?, ?, ?,NOW(),?,?)');
+                $query->bind_param('sssii', $form_data['titolo'], $form_data['contenuto'],$fields['immagine'],$form_data['pubblicato'],$loggedInUserId);
                 $query->execute();
     
                 if ($query->affected_rows === 0) {
@@ -165,6 +166,7 @@ class Articolo extends BlogFather{
         $fields = array(
             'titolo'=>$form_data['titolo'],
             'contenuto'=>$form_data['contenuto'],
+            'pubblicato'=>$form_data['pubblicato'],
             'immagine'=>$form_data['immagine']
         );
 
@@ -182,11 +184,13 @@ class Articolo extends BlogFather{
             $is_in_error = false;
 
             try {
-                $query = $mysqli->prepare('UPDATE articoli SET titolo = ?, contenuto = ?, created_at = NOW() WHERE id = ?');
+                $query = $mysqli->prepare('UPDATE articoli 
+                SET titolo = ?, contenuto = ?, created_at = NOW(),pubblicato = ? 
+                WHERE id = ?');
                 if (is_bool($query)) {
                     throw new \Exception('Query non valida. $mysqli->prepare ha restituito false.');
                 }
-                $query->bind_param('ssi', $fields['titolo'], $fields['contenuto'], $id);
+                $query->bind_param('ssii', $fields['titolo'], $fields['contenuto'], $fields['pubblicato'],$id);
                 $query->execute();
             } catch (\Exception $e) {
                 error_log("Errore PHP in linea {$e->getLine()}: " . $e->getMessage() . "\n", 3, 'my-errors.log');
@@ -263,10 +267,10 @@ class Articolo extends BlogFather{
 
         if (isset($args['id'])) {
             $args['id'] = intval($args['id']);
-            $query = $mysqli->query('SELECT * FROM articoli WHERE id = '.$args['id']);
+            $query = $mysqli->query('SELECT * FROM articoli WHERE pubblicato=1 AND id = '.$args['id']);
         }else{
 
-            $query = $mysqli->query('SELECT * FROM articoli');
+            $query = $mysqli->query('SELECT * FROM articoli WHERE pubblicato=1');
         }
 
 

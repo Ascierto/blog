@@ -19,36 +19,67 @@
 
 if(count($articoli)>0) :
 
+
 ?>
 
 <main class="container">
   <div class="row">
-    <div class="col-12 text-center">
-        <h1>I miei articoli</h1>
-    </div>
 
     <?php foreach ($articoli as $articolo) :?>
+    <?php if($articolo['pubblicato']== 0): ?>
+    <div class="col-12 col-md-6 text-center">
+        <h1>Le mie Bozze</h1>
+            <div class="col-md-4">
+              <div class="card mb-3">
+              <?php if($articolo['immagine']): ?>
+                <img src="./images/<?php echo $articolo['immagine'] ?>" class="card-img-top img-fluid" alt="...">
+              <?php else :?>
+                <img src="./images/default-blog.jpg" class="card-img-top img-fluid" alt="...">
+                <?php endif?>
+                <div class="card-body">
+                  <h5 class="card-title"> <?php echo $articolo['titolo'] ?></h5>
+                  <p class="card-text">  <?php echo substr($articolo['contenuto'],0,100) . "..." ?>  </p>
+                  <p class="card-text"><small class="text-muted"> <?php echo $articolo['created_at'] ?> </small></p>
 
-    <div class="col-12 col-md-4">
-      <div class="card mb-3">
-      <?php if($articolo['immagine']): ?>
-        <img src="./images/<?php echo $articolo['immagine'] ?>" class="card-img-top img-fluid" alt="...">
-       <?php else :?>
-        <img src="./images/default-blog.jpg" class="card-img-top img-fluid" alt="...">
-        <?php endif?>
-        <div class="card-body">
-          <h5 class="card-title"> <?php echo $articolo['titolo'] ?></h5>
-          <p class="card-text">  <?php echo substr($articolo['contenuto'],0,100) . "..." ?>  </p>
-          <p class="card-text"><small class="text-muted"> <?php echo $articolo['created_at'] ?> </small></p>
-        </div>
-        <div>
-          <a href="dettaglio-articolo.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
-        </div>
-      </div>
+                  <h5 class="card-title"> Pubblicato? <?php $articolo['pubblicato'] == 0 ? printf('No!'):printf('Si!') ;?> </h5>
+                </div>
+                <div>
+                  <a href="dettaglio-articolo.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
+                </div>
+              </div>
+            </div>
+
     </div>
 
+
+  <?php elseif($articolo['pubblicato']== 1):?>
+    <div class="col-12 col-md-6 text-center">
+        <h1>Articoli pubblicati</h1>
+          <div class="col-md-4">
+            <div class="card mb-3">
+            <?php if($articolo['immagine']): ?>
+              <img src="./images/<?php echo $articolo['immagine'] ?>" class="card-img-top img-fluid" alt="...">
+            <?php else :?>
+              <img src="./images/default-blog.jpg" class="card-img-top img-fluid" alt="...">
+              <?php endif?>
+              <div class="card-body">
+                <h5 class="card-title"> <?php echo $articolo['titolo'] ?></h5>
+                <p class="card-text">  <?php echo substr($articolo['contenuto'],0,100) . "..." ?>  </p>
+                <p class="card-text"><small class="text-muted"> <?php echo $articolo['created_at'] ?> </small></p>
+
+                <h5 class="card-title"> Pubblicato? <?php $articolo['pubblicato'] == 0 ? printf('No!'):printf('Si!') ;?> </h5>
+              </div>
+              <div>
+                <a href="dettaglio-articolo.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
+              </div>
+            </div>
+          </div>
+    </div>
+
+
+    <?php endif ; ?>
+    
     <?php endforeach ; ?>
-  </div>
   <?php else : ?>
 
   <div class="my-5 p-5">
@@ -57,6 +88,7 @@ if(count($articoli)>0) :
   </div>
 
   <?php endif ;?>
+  </div>
 </main>
 
 

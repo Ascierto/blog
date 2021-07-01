@@ -30,6 +30,10 @@
           <h5 class="card-title"> <?php echo $articolo['titolo'] ?></h5>
           <p class="card-text">  <?php echo substr($articolo['contenuto'],0,100) . "..." ?>  </p>
           <p class="card-text"><small class="text-muted"> <?php echo $articolo['created_at'] ?> </small></p>
+
+          <h5 class="card-title"> Pubblicato? <?php $articolo['pubblicato'] == 0 ? printf('No!'):printf('Si!') ;?> </h5>
+
+
         </div>
         <div>
           <a href="dettaglio-index.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
