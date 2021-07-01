@@ -36,10 +36,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/blog/includes/accedi.php?logout=1">Logout</a>
                         </li>
-                    <?php else: ?>
                         <li class="nav-item">
-                        <a class="nav-link" href="articoli-tutti.php">Leggi Articoli</a>
+                            <a class="nav-link" href="articoli-personali.php">I tuoi Articoli</a>
                         </li>
+                    <?php else: ?>
                         <li class="nav-item">
                         <a class="nav-link" href="registrati.php">Registrati</a>
                         </li>

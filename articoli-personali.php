@@ -1,4 +1,5 @@
 <?php
+   session_start();
 
     include __DIR__ .'/includes/navbar.php';
 
@@ -6,15 +7,24 @@
 
     include __DIR__ .'/includes/Articolo.php';
 
-    $articoli=\FirstMile\Articolo::showArticoli();
+    //riesco a loggarmi ed iniziare una sessione e riesco a prendere l'email quando
 
-    // var_dump($articoli);
+    var_dump($_SESSION);
+
+    
+
+
+  $articoli = \FirstMile\Articolo::selectData(array( 'userId' => $_SESSION['userId'] ));
+
+
+
+
 ?>
 
 <main class="container">
   <div class="row">
     <div class="col-12 text-center">
-        <h1>Tutti gli articoli</h1>
+        <h1>I miei articoli</h1>
     </div>
 
     <?php foreach ($articoli as $articolo) :?>

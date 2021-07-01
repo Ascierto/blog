@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 include __DIR__ .'/includes/navbar.php';
 
 include __DIR__ .'/includes/BlogFather.php';
@@ -9,24 +7,17 @@ include __DIR__ .'/includes/Articolo.php';
 
 $args     = array(
     'id' => $_GET['id'],
-    'userId' => $_SESSION['userId']
 );
- 
 
-$articolo = \FirstMile\Articolo::selectData($args);
-
-
-if (count($articolo) > 0) :
+if(isset($_GET['id'])){
+    $articolo = \FirstMile\Articolo::showArticoli($args);
+}
 
 ?>
 
-
 <section class="container">
     <div class="row">
-        <div class="col-12 text-end">
-            <a href="modifica-articolo.php?id=<?php echo $_GET['id'];?>" class="btn btn-outline-warning">Modifica</a>
-            <a href="cancella-articolo.php?id=<?php echo $_GET['id'];?>" class="btn btn-outline-danger">Elimina</a>
-        </div>
+
         <div class="col-12">
             <h1> <?php echo $articolo[0]['titolo'] ?></h1>
             <p> # <?php echo $_GET['id'] ?></p>
@@ -45,10 +36,3 @@ if (count($articolo) > 0) :
     </div>
 
 </section>
-
-<?php else : ?>
-
-<h1>Spiacenti nessun articolo trovato</h1>
-
-<?php endif; ?>
-

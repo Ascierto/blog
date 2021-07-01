@@ -1,23 +1,14 @@
 <?php
-   session_start();
-
+  session_start();
     include __DIR__ .'/includes/navbar.php';
 
     include __DIR__ .'/includes/BlogFather.php';
 
     include __DIR__ .'/includes/Articolo.php';
 
-    //riesco a loggarmi ed iniziare una sessione e riesco a prendere l'email quando
+    $articoli=\FirstMile\Articolo::showArticoli();
 
-    var_dump($_SESSION);
-
-    
-
-
-    $articoli = \FirstMile\Articolo::selectData(array( 'userId' => $_SESSION['userId'] ));
-
-
-
+    // var_dump($articoli);
 ?>
 
 <main class="container">
@@ -41,7 +32,7 @@
           <p class="card-text"><small class="text-muted"> <?php echo $articolo['created_at'] ?> </small></p>
         </div>
         <div>
-          <a href="dettaglio-articolo.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
+          <a href="dettaglio-index.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
         </div>
       </div>
     </div>

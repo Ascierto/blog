@@ -252,7 +252,7 @@ class Articolo extends BlogFather{
           }
 
     }
-    public static function showArticoli()
+    public static function showArticoli($args=null)
     {
         $mysqli = new mysqli("127.0.0.1", "root", "rootroot", "blog_php");
         
@@ -261,7 +261,13 @@ class Articolo extends BlogFather{
             exit();
         }
 
-        $query = $mysqli->query('SELECT * FROM articoli');
+        if (isset($args['id'])) {
+            $args['id'] = intval($args['id']);
+            $query = $mysqli->query('SELECT * FROM articoli WHERE id = '.$args['id']);
+        }else{
+
+            $query = $mysqli->query('SELECT * FROM articoli');
+        }
 
 
         $results=[];
