@@ -12,6 +12,7 @@ $args     = array(
 
 if(isset($_GET['id'])){
     $articolo = \FirstMile\Articolo::showArticoli($args);
+    $conta = \FirstMile\Articolo::countComment($args);
 }
 
 ?>
@@ -37,6 +38,8 @@ if(isset($_GET['id'])){
             <p>Autore : <?php echo $articolo[0]['autore'] ?></p>
 
             <h5> Pubblicato? <?php $articolo[0]['pubblicato'] == 0 ? printf('No!'):printf('Si!') ;?> </h5>
+
+            <p>Questo articolo ha <span class="fs-3 fw-bold"> <?php echo $conta[0]['conta'] ?> </span>commenti </p>
         </div>
     </div>
 

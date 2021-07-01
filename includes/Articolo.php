@@ -8,7 +8,6 @@ class Articolo extends BlogFather{
 
     protected static function sanitize($fields)
     {
-        //Questa funzione è da rivedere non funziona effettivamente;
         
         $fields['titolo'] = self::cleanInput($fields['titolo']);
 
@@ -272,6 +271,33 @@ class Articolo extends BlogFather{
         }else{
 
             $query = $mysqli->query('SELECT * FROM articoli WHERE pubblicato=1');
+        }
+
+
+        $results=[];
+
+        if($query->num_rows > 0){
+            
+            while ($row = $query->fetch_assoc()) {
+                $results[] = $row;
+            }      
+        }
+
+        return $results;
+    }
+
+    public static function countComment($args=null)
+    {
+        $mysqli = new mysqli("127.0.0.1", "root", "rootroot", "blog_php");
+        
+        if ($mysqli->connect_errno) {
+            echo "Connessione al database fallita: " . $mysqli->connect_error;
+            exit();
+        }
+
+        if (isset($args['id'])) {
+            $args['id'] = intval($args['id']);
+            $query = $mysqli->query('SELECT count(*)as conta FROM commenti where id_articolo ='. $args['id']);
         }
 
 
