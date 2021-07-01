@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include __DIR__ .'/includes/navbar.php';
 
@@ -50,9 +51,9 @@ if(isset($_GET['id'])){
         <div class="col-12">
             <form action="includes/inserisci-commento.php?id=<?php echo $articolo[0]['id'] ?>" method="POST">
                 <label for="commento" class="form-label">Aggiungi commento</label>
-                <textarea name="commento" id="commento" cols="10" rows="4" class="form-control"></textarea>
+                <textarea name="commento" id="commento" cols="5" rows="4" class="form-control"></textarea>
 
-                <input type="submit" value="Inserisci commento">
+                <input type="submit" value="Inserisci commento" class="btn btn-dark my-2">
             </form>
         </div>
     </div>
@@ -78,7 +79,7 @@ if(isset($_GET['id'])){
     <?php foreach ($commenti as $commento):?>
 
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card bg-light my-2">
                         <p class="p-3"><?php echo $commento['commento']; ?></p>
                     </div>
                 </div>
@@ -88,7 +89,13 @@ if(isset($_GET['id'])){
         
 
   <?php else : ?>
-   <h3>Non ci sono commenti, sii tu il primo a commentare</h3>
+  <div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>Non ci sono commenti, sii tu il primo a commentare</h3>
+        </div>
+    </div>
+  </div>
    <?php endif ; ?>
 
 

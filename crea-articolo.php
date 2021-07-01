@@ -19,9 +19,10 @@ if (!isset($_SESSION['email'])) {
 
 ?>
 
-        <main class="container">
-            <div class="row">
-                <div class="col-12 col-md-6">
+        <main class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-9">
+                    <h1 class="my-3">Inserisci Articolo</h1>
                     <form action="./includes/inserisci-articolo.php" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="titolo" class="form-label">Titolo</label>
