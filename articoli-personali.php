@@ -17,7 +17,7 @@
   $articoli = \FirstMile\Articolo::selectData(array( 'userId' => $_SESSION['userId'] ));
 
 
-
+if(count($articoli)>0) :
 
 ?>
 
@@ -49,8 +49,17 @@
 
     <?php endforeach ; ?>
   </div>
+  <?php else : ?>
 
+  <div class="my-5 p-5">
+    <h2>Non ci sono articoli da visualizzare</h2>
+    <p>Vuoi aggiungerne uno? <a href="crea-articolo.php">Clicca qui</a></p>
+  </div>
+
+  <?php endif ;?>
 </main>
+
+
 
 
 

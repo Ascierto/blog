@@ -58,7 +58,7 @@ if(isset($_GET['id'])){
 
     $commenti=\FirstMile\Commenti::selectComment($id);
 
-    if(count($commenti)>0)
+    if(count($commenti)>0) :
 ?>
 
         <section class="container my-5">
@@ -66,20 +66,21 @@ if(isset($_GET['id'])){
                 <div class="col-12">
                     <h3>Tutti i commenti</h3>
                 </div>
-                <?php foreach ($commenti as $commento):?>
+    <?php foreach ($commenti as $commento):?>
 
                 <div class="col-12">
                     <div class="card">
                         <p class="p-3"><?php echo $commento['commento']; ?></p>
                     </div>
                 </div>
-                <?php endforeach; ?>
+    <?php endforeach; ?>
             </div>
         </section>
+        
 
-
-
-
+  <?php else : ?>
+   <h3>Non ci sono commenti, sii tu il primo a commentare</h3>
+   <?php endif ; ?>
 
 
 

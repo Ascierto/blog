@@ -31,7 +31,7 @@
                             <a class="nav-link" href="crea-articolo.php">Crea</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Profilo</a>
+                            <a class="nav-link" href="profilo.php">Profilo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/blog/includes/accedi.php?logout=1">Logout</a>
