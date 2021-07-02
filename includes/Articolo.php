@@ -208,7 +208,7 @@ class Articolo extends BlogFather{
             }
 
             $stato = $is_in_error ? 'ko' : 'ok';
-            header('Location: http://localhost:8888/blog/dettaglio-articolo.php?id=' . $id . '&stato=' . $stato);
+            header('Location: http://localhost:8888/blog/articoli-personali.php?id=' . $id . '&stato=' . $stato);
             exit;
         }
 
