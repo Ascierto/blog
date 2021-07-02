@@ -28,9 +28,9 @@ if(count($articoli)>0) :
 
     <?php foreach ($articoli as $articolo) :?>
     <?php if($articolo['pubblicato']== 0): ?>
-    <div class="col-12 col-md-6 text-center">
-        <h1>Le mie Bozze</h1>
-            <div class="col-md-4">
+    <div class="col-12 col-md-6 text-center my-5">
+        <h1>Bozza</h1>
+   
               <div class="card mb-3">
               <?php if($articolo['immagine']): ?>
                 <img src="./images/<?php echo $articolo['immagine'] ?>" class="card-img-top img-fluid" alt="...">
@@ -50,15 +50,15 @@ if(count($articoli)>0) :
                   <a href="dettaglio-articolo.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
                 </div>
               </div>
-            </div>
+   
 
     </div>
 
 
   <?php elseif($articolo['pubblicato']== 1):?>
-    <div class="col-12 col-md-6 text-center">
-        <h1>Articoli pubblicati</h1>
-          <div class="col-md-4">
+    <div class="col-12 col-md-6 text-center my-5">
+        <h1>Articolo pubblicato</h1>
+         
             <div class="card mb-3">
             <?php if($articolo['immagine']): ?>
               <img src="./images/<?php echo $articolo['immagine'] ?>" class="card-img-top img-fluid" alt="...">
@@ -76,7 +76,7 @@ if(count($articoli)>0) :
                 <a href="dettaglio-articolo.php?id=<?php echo $articolo['id'];?>" class="btn btn-success">Dettaglio</a>
               </div>
             </div>
-          </div>
+          
     </div>
 
 
